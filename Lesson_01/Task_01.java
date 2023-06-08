@@ -11,6 +11,7 @@ public class Task_01 {
         int num = sc.nextInt();
         System.out.printf("Треугольное число - %d\n", triangle_number(num));
         System.out.printf("Факториал - %d\n", factorial(num));
+        sc.close();
     }
     public static int triangle_number(int n) {
         int sum = 0;
