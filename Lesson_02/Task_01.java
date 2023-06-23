@@ -33,7 +33,7 @@ public class Task_01 {
 
             for (String key : map.keySet()) {
                 if (!map.get(key).equals("null")) {
-                    System.out.println(map.get(key) + " " + map.get(key).getClass());
+                    // System.out.println(map.get(key) + " " + map.get(key).getClass());
                     sb.append(key + " = " + map.get(key) + " AND ");
                 }
             }
