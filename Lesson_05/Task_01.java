@@ -56,8 +56,11 @@ public class Task_01 {
                     break;
             
                 case 3:
+                    System.out.println("Телефонная книга без сортировки:");
+                    System.out.println(phoneBook);
                     List<Contact> contacts = new ArrayList<>(phoneBook.values().stream().toList());
                     contacts.sort((o1, o2) -> o2.getCountPhones().compareTo(o1.getCountPhones()));
+                    System.out.println("Телефонная книга c сортировкой:");
                     for (Contact item : contacts) {
                         System.out.println(item);
                     }
