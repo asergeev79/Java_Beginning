@@ -24,6 +24,14 @@ public class Contact {
         this.phones.add(phone_num);        
     }
 
+    public ArrayList<Integer> getPhones() {
+        return this.phones;
+    }
+
+    public Integer getCountPhones(){
+        return this.phones.size();
+    }
+
     public String toString() {
         return this.name + ": " + this.phones.toString();        
     }

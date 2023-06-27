@@ -2,15 +2,9 @@ package Lesson_05;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Scanner;
-
-//import Lesson_05.Phone;
+import java.util.*;
 
 public class Task_01 {
     /*
@@ -39,9 +33,8 @@ public class Task_01 {
 
         HashMap<String,Contact> phoneBook = new HashMap<>();
         Scanner sc = new Scanner(System.in);
-
-        String[] rec_fields;
-        int punkt = 0;
+        String fileName = "Lesson_05\\contacts.txt";
+        int punkt;
         do {
             System.out.println("1. Добавить контакт");
             System.out.println("2. Прочитать из файла");
@@ -55,33 +48,17 @@ public class Task_01 {
                     sc.nextLine();
                     System.out.println("Введите новый контакт:");
                     String record = sc.nextLine();
-                    rec_fields = record.split(" ");
-                    phoneBook.putIfAbsent(rec_fields[0], new Contact(rec_fields[0]));
-                    phoneBook.get(rec_fields[0]).add(Integer.parseInt(rec_fields[1]));
+                    readFromString(phoneBook, record);
                     break;
 
                 case 2:
-                    try {
-                        File file = new File("Lesson_05\\contacts.txt");
-                        FileReader fr = new FileReader(file);
-                        BufferedReader reader = new BufferedReader(fr);
-                        String line = reader.readLine();
-                        while (line != null) {
-                            rec_fields = line.split(" ");
-                            phoneBook.putIfAbsent(rec_fields[0], new Contact(rec_fields[0]));
-                            phoneBook.get(rec_fields[0]).add(Integer.parseInt(rec_fields[1]));
-                            line = reader.readLine();
-                        }
-                        reader.close();;
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    readFromFile(phoneBook, fileName);
                     break;
             
                 case 3:
-                    for (Contact item : Collections.sort(phoneBook.values(), Comparator);) {
+                    List<Contact> contacts = new ArrayList<>(phoneBook.values().stream().toList());
+                    contacts.sort((o1, o2) -> o2.getCountPhones().compareTo(o1.getCountPhones()));
+                    for (Contact item : contacts) {
                         System.out.println(item);
                     }
                     break;
@@ -98,4 +75,27 @@ public class Task_01 {
 
         sc.close();
     }
+
+    static void readFromString(HashMap<String,Contact> hm, String str) {
+        String[] rec_fields = str.split(" ");
+        hm.putIfAbsent(rec_fields[0], new Contact(rec_fields[0]));
+        hm.get(rec_fields[0]).add(Integer.parseInt(rec_fields[1]));
+    }
+
+    static void readFromFile(HashMap<String,Contact> hm, String file_str) {
+        try {
+            File file = new File(file_str);
+            FileReader fr = new FileReader(file);
+            BufferedReader reader = new BufferedReader(fr);
+            String line = reader.readLine();
+            while (line != null) {
+                readFromString(hm, line);
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
