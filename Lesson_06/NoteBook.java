@@ -1,7 +1,6 @@
 package Lesson_06;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -9,21 +8,17 @@ public class NoteBook {
     private int id;
     private Map<String, String> features;
 
-    private static int count = 100000;
-    private static Set<String> featureSet = new HashSet<>();;
-
-    public NoteBook(Map<String,String> item) {
-        this.id = ++count;
+    public NoteBook(int idItem, Map<String,String> item) {
+        this.id = idItem;
         this.features = new HashMap<>(item);
-        featureSet.addAll(item.keySet());
     }
 
-    public NoteBook(String vendor, String model) {
-        this(Map.ofEntries(Map.entry("vendor", vendor), Map.entry("model", model)));
+    public NoteBook(int idItem, String vendor, String model) {
+        this(idItem, Map.ofEntries(Map.entry("vendor", vendor), Map.entry("model", model)));
     }
 
     public NoteBook() {
-        this("Noname", "somemodel");
+        this(0, "Noname", "somemodel");
     }
 
     @Override
@@ -46,14 +41,8 @@ public class NoteBook {
         return this.features.get(str);        
     }
 
-    public static int getCountLast() {
-        return count;
+    public Set<String> getFeatures() {
+        return this.features.keySet();        
     }
 
-    public static String getFeatures() {
-        StringBuilder sb = new StringBuilder();
-        int index = 1;
-        for (String menuItem : featureSet) sb.append(index + " - " + menuItem + "\n");
-        return sb.toString();        
-    }
 }

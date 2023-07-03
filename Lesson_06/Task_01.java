@@ -1,5 +1,10 @@
 package Lesson_06;
 
+import java.io.FileNotFoundException;
+
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
+
 public class Task_01 {
     /*
      * Подумать над структурой класса Ноутбук для магазина техники - выделить поля и методы. Реализовать в java.
@@ -26,17 +31,9 @@ public class Task_01 {
      * выбор конкретнее
      * вывод подходящих
      */
-    public static void main(String[] args) {
-        NoteBook nb1 = new NoteBook("Dell", "model1");        
-        NoteBook nb2 = new NoteBook("Dell", "model2");
-        NoteBook nb3 = new NoteBook("HP", "model1");        
-        NoteBook nb4 = new NoteBook("Huawei", "model2");
-
-        System.out.println(NoteBook.getCountLast());
-        System.out.println(NoteBook.getFeatures());
-        System.out.println(nb1);
-        System.out.println(nb2);
-        System.out.println(nb3);
-        System.out.println(nb4);
+    public static void main(String[] args) throws JsonSyntaxException, JsonIOException, FileNotFoundException {
+        Catalog nbCatalog = new Catalog("Lesson_06\\notebooks.json");
+        System.out.println(nbCatalog.toString());
+        System.out.println(nbCatalog.search());
     }
 }
